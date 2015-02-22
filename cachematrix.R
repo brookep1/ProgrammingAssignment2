@@ -62,6 +62,7 @@ cacheSolve <- function(cache, ...) {
         # tryCatch will show any error for solve and prevent an R script error 
         ix <- tryCatch( solve(mx) )
         cache$setinverse(ix)
+        ix
 }
 
 #########
@@ -73,4 +74,18 @@ cacheSolve <- function(cache, ...) {
 # mat <- matrix(c(1,2,3,0,1,4,5,6,0),nrow=3,ncol=3)
 # mat.cache <- makeCacheMatrix(mat)
 # mat.cache$get()
+# [,1] [,2] [,3]
+# [1,]    1    0    5
+# [2,]    2    1    6
+# [3,]    3    4    0
 # cacheSolve(mat.cache)
+# [,1] [,2] [,3]
+# [1,]  -24   20   -5
+# [2,]   18  -15    4
+# [3,]    5   -4    1
+# cacheSolve(mat.cache)
+# Getting Inverse from Cache
+# [,1] [,2] [,3]
+# [1,]  -24   20   -5
+# [2,]   18  -15    4
+# [3,]    5   -4    1
