@@ -11,6 +11,9 @@
 ########
 # Limitations:
 ## This code will only work on square matrices
+## Not all matrices are solveable -- will get an "unable to find stored_matrix"
+## error if it can't solve the matrix
+#
 # Credits:
 ## These functions were created for "Assignment 2" of the
 ## Coursera "R Programming" course
@@ -22,6 +25,7 @@
 # get   - Gets the matrix
 # getinverse - Gets the currently cached inverse
 # setinverse - Sets the inverse
+
 makeCacheMatrix <- function(stored_matrix = matrix()) {
     # initialize stored_inverse to a NULL
     stored_inverse <- NULL
@@ -42,10 +46,10 @@ makeCacheMatrix <- function(stored_matrix = matrix()) {
          getinverse = getinverse)
 }
 
-
 ## cacheSolve computes the inverse of a square matrix and caches it with the
 ## setinverse method
 ## once cached getinverse will retrieve the solution
+
 cacheSolve <- function(cache, ...) {
         inverse <- cache$getinverse()
         # If cache is populated use that
@@ -55,14 +59,17 @@ cacheSolve <- function(cache, ...) {
         } 
         # Retrieve the matrix, solve (invert) it, and return the inverse
         mx <- cache$get()
-        ix <- solve(mx)
+        # tryCatch will show any error for solve and prevent an R script error 
+        ix <- tryCatch( solve(mx) )
         cache$setinverse(ix)
 }
 
 #########
 # Example
 #########
-# # Need a solveable matrix. Had to google one.
+## Need a solveable matrix. Had to google one.
+###http://www.purplemath.com/modules/mtrxinvr2.htm
+##
 # mat <- matrix(c(1,2,3,0,1,4,5,6,0),nrow=3,ncol=3)
 # mat.cache <- makeCacheMatrix(mat)
 # mat.cache$get()
